@@ -1,0 +1,106 @@
+/* <-- login page style --> */
+.login-page {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-page .boxes {
+    min-height: 60vh;
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.login-page .brand-image {
+    background-color: #cac8c9;
+    padding: 0;
+}
+
+.login-page .brand-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-page .login-form {
+    background-color: #05445E;
+    color: #dadada;
+    padding: 2em 1em;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form h1 {
+    font-size: 2em;
+    text-transform: uppercase;
+    margin: 1.2em 0 2em;
+    letter-spacing: 1.2px;
+    text-shadow: 1px 5px 15px #dadada;
+}
+
+.login-form .email-div,
+.password-div {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.login-form label {
+    font-size: 1.1em;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    text-align: center;
+    align-items: center;
+    text-shadow: 1px 5px 10px #111;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 0.5em 1em;
+    border-radius: 25px;
+    border: 1px solid #1f1f1f7e;
+    box-shadow: inset 10px 10px 8px #cacaca, inset -10px -10px 8px #f6f6f6;
+}
+
+.login-form #forget-password {
+    font-size: .9em;
+    color: #d66962;
+    letter-spacing: 1.2px;
+}
+
+.login-form #forget-password:hover {
+    text-shadow: 1px 1px 1px #ff0011;
+}
+
+.login-form .btns {
+    margin: 1.7em 0 .5em;
+}
+
+.login-form #login-btn {
+    padding: .6em 1.5em;
+    background-color: #9B71F5;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 0;
+}
+
+.login-form #login-btn:hover {
+    background-color: #764ffc;
+}
+
+.login-form .create-acc-text {
+    font-size: .9em;
+}
+
+.login-form .create-acc-text a {
+    color: #9B71F5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.login-form .create-acc-text a:hover {
+    color: #764ffc;
+}

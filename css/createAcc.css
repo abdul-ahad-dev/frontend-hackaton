@@ -1,0 +1,128 @@
+/* <-- create account page style --> */
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Adjust container settings */
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Title Styling */
+.title h1 {
+    font-size: 2.8em;
+    font-weight: 600;
+    margin: 1em 0 0;
+    color: #1f1f1f;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 1px 5px 15px #dadada;
+}
+
+/* Account creation box styling */
+.create-acc {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #05445E;
+    color: #dadada;
+    margin: 1em auto 3em;
+    border-radius: 15px;
+    padding: 2em 1.5em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.create-acc label {
+    font-size: 1.1em;
+    letter-spacing: 1.15px;
+    text-shadow: 2px 2px 15px #dadada;
+}
+
+.create-acc input[type="text"],
+.create-acc input[type="email"],
+.create-acc input[type="tel"],
+.create-acc input[type="date"],
+.create-acc input[type="password"],
+.create-acc select {
+    width: 100%;
+    background-color: #dadada;
+    color: #1f1f1f;
+    padding: 0.8em 1em;
+    font-size: 1em;
+    border-radius: 25px;
+    outline: none;
+    border: 1px solid #1f1f1f7e;
+    box-shadow: inset 10px 10px 8px #cacaca, inset -10px -10px 8px #f6f6f6;
+    margin: auto;
+}
+
+.create-acc option {
+    background-color: #1f1f1f;
+    color: #dadada;
+    font-size: 1.1em;
+}
+
+.create-acc .select-gender {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+}
+
+.create-acc .select-gender .male,
+.create-acc .select-gender .female {
+    flex: 1;
+    background-color: #dadada;
+    color: #1f1f1f;
+    padding: 0.8em 2.5em;
+    font-size: 1em;
+    border-radius: 25px;
+    outline: none;
+    border: 1px solid #1f1f1f7e;
+    box-shadow: inset 10px 10px 8px #cacaca, inset -10px -10px 8px #f6f6f6;
+}
+
+.create-acc .btn-cont {
+    padding: 2em 0 0;
+    text-align: center;
+}
+
+.create-acc button {
+    width: 100%;
+    max-width: 250px;
+    background-color: #9B71F5;
+    color: #fff;
+    padding: 0.8em 1.2em;
+    border: none;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 0;
+}
+
+.create-acc button:hover {
+    background-color: #764ffc;
+}
+
+/* Login Link Styling */
+.create-acc .login-link {
+    text-align: center;
+    font-size: .9em;
+}
+
+.create-acc .login-link a {
+    color: #9B71F5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.create-acc .login-link a:hover {
+    color: #764ffc;
+}
+
+@media (max-width: 768px) {
+    
+    .create-acc {
+        padding: 1em;
+    }
+}
