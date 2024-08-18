@@ -7,20 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Dashboard</title>
+    
+    <!-- Add icon link -->
+    <link rel="icon" type="image/png" href="../images/brand.png">
+
+
+    <!-- Google Font Link -->
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
-    <title>Dashboard</title>
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+        <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/dashboard.css" />
 
 </head>
 
 <body>
+
+
     <section class="my-5">
         <div class="container">
             <div class="main-body">
@@ -39,12 +52,19 @@
                                 </div>
                                 <div class="list-group list-group-flush text-center mt-4">
                                     <a href="#" class="list-group-item list-group-item-action border-0"
-                                        onclick="showProfileDetails()">Profile Informaton</a>
+                                        onclick="profileInformation()">Profile Informaton</a>
+
+                                    <a href="../index.html" class="list-group-item list-group-item-action border-0"
+                                        onclick="homePage()">Home Page</a>
+
                                     <a href="#" class="list-group-item list-group-item-action border-0"
-                                        onclick="showOrderDetails()">Home Page</a>
+                                        onclick="myBlog()">My Blog</a>
+
                                     <a href="#" class="list-group-item list-group-item-action border-0 active"
-                                        onclick="showAddressBook()">Create Blog</a>
-                                    <a href="#" id="logout-button" class="list-group-item list-group-item-action border-0">Logout</a>
+                                        onclick="createBlog()">Create Blog</a>
+
+                                    <a href="#" id="logout-button"
+                                        class="list-group-item list-group-item-action border-0">Logout</a>
                                 </div>
                             </div>
                         </div>
@@ -80,8 +100,7 @@
 
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Enter Title</label>
-                                    <input type="email" class="form-control" id="title"
-                                        placeholder="add a title">
+                                    <input type="email" class="form-control" id="title" placeholder="add a title">
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Enter
@@ -122,23 +141,26 @@
     <script type="module" src="../scripts/dashboard.js"></script>
 
     <script>
-
-        function showProfileDetails() {
+        function profileInformation() {
             hideAllSections();
             document.getElementById('profileDetails').style.display = 'block';
             setActiveLink(0);
         }
 
-        function showOrderDetails() {
-            hideAllSections();
-            document.getElementById('orderDetails').style.display = 'block';
+        function homePage() {
             setActiveLink(1);
         }
 
-        function showAddressBook() {
+        function myBlog() {
+            hideAllSections();
+            document.getElementById('orderDetails').style.display = 'block';
+            setActiveLink(2);
+        }
+
+        function createBlog() {
             hideAllSections();
             document.getElementById('addressBook').style.display = 'block';
-            setActiveLink(2);
+            setActiveLink(3);
         }
 
         function hideAllSections() {

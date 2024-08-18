@@ -32,9 +32,8 @@ console.log(blogMainPage);
 const querySnapshot = await getDocs(collection(db, "blogs"));
 querySnapshot.forEach((doc) => {
     const data = doc.data()
-    console.log(doc.id, " => ", doc.data());
 
-    blogMainPage.innerHTML += `<div class="card mb-3 ">
+    blogMainPage.innerHTML += `<div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-4">
                             <img src="images/logo.png" class="img-fluid rounded-start" alt="...">
@@ -43,7 +42,10 @@ querySnapshot.forEach((doc) => {
                             <div class="card-body">
                                 <h5 class="card-title" id="title">${data.blogTitle}</h5>
                                 <p class="card-text" id="discription">${data.blogDescription}</p>
-                                <p class="card-text bottom "><strong id="user-name">ABDUL AHAD</strong> <small id="date" class="text-body-secondary">Aug 12, 2024</small></p>
+                                <p class="card-text bottom ">
+                                    <strong id="user-name">${data.userName || 'N/A'}</strong>
+                                    <small id="date" class="text-body-secondary">${data.blogDate.toDate().toLocaleDateString()}</small>
+                                </p>
                             </div>
                         </div>
                     </div>

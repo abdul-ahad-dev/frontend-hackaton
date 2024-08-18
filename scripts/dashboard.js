@@ -1,21 +1,21 @@
 import { app, auth } from "./firebase.mjs";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, getDocs, addDoc, collection, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, getDocs, addDoc, collection, Timestamp, deleteDoc, } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 
 const db = getFirestore();
-
 const logoutButton = document.getElementById('logout-button');
 
-
+// Get user data From firestore and set in dashboard profile
 function getUserProfileData(uid) {
   console.log("Fetching data for UID:", uid);
   const userDocRef = doc(db, "users", uid);
   getDoc(userDocRef)
-    .then((docSnapshot) => {
+    .then((docSnapshot) =>
+    {
       if (docSnapshot.exists()) {
         const userData = docSnapshot.data();
-
+        var userName = userData.userName
         console.log("User data retrieved:", userData);
         document.getElementById('profile-name').innerText = userData.userName;
         document.getElementById('profile-contact').innerText = userData.phoneNo;
@@ -29,11 +29,14 @@ function getUserProfileData(uid) {
         document.getElementById('user-city').innerHTML = `<strong>City:</strong> ${userData.city}`;
       }
     })
-    .catch((error) => {
+    .catch((error) =>
+    {
       window.location.href = 'loginAcc.html';
     });
 }
 
+
+// Chech USER Login or not!
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = 'loginAcc.html';
@@ -42,11 +45,14 @@ onAuthStateChanged(auth, (user) => {
     console.log('User is logged in:', user);
     getUserProfileData(user.uid);
     setBlogInDashboard()
-    logoutButton.addEventListener('click', () => {
+    logoutButton.addEventListener('click', () =>
+    {
       signOut(auth)
-        .then(() => {
+        .then(() =>
+        {
           window.location.href = '../index.html';
-        }).catch((error) => {
+        }).catch((error) =>
+        {
           console.error('Error signing out:', error);
         });
     });
@@ -54,52 +60,122 @@ onAuthStateChanged(auth, (user) => {
 });
 
 
-
+// Add Blog 
 let addBlog = document.getElementById('add-blog');
 
-
-addBlog.addEventListener('click', async function () {
-  const title = document.getElementById('title');
-  const description = document.getElementById('description');
-  // const image = document.getElementById('image').value;
-
-  console.log(title.value);
-  console.log(description.value);
-
-  try {
-    const docRef = await addDoc(collection(db, "blogs"), {
-      blogTitle: title.value,
-      blogDescription: description.value,
-      blogDate: Timestamp.fromDate(new Date()),
-    });
-    setBlogInDashboard()
-    console.log("Document written with ID: ", docRef.id);
-  }
-  catch (e) {
-    console.error("Error adding document: ", e);
-    alert(`Error: ${e.message}`);
-  }
+addBlog.addEventListener('click', () => {
+  onAuthStateChanged(auth, (user) =>
+  {
+    if (user) {
+      const uid = user.uid;
+      addBlogInUserAcc(uid);
+    } else {
+      alert("User is not authenticated");
+    }
+  })
 });
 
+function addBlogInUserAcc(uid) {
+  const title = document.getElementById('title').value;
+  const description = document.getElementById('description').value;
 
+  async function getUserProfileData(uid) {
+    try {
+      const userDocRef = doc(db, "users", uid);
+      const docSnapshot = await getDoc(userDocRef);
+
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data();
+        const userName = userData.userName;
+
+        const docRef = await addDoc(collection(db, "blogs"), {
+          userUID: uid,
+          userName: userName,
+          blogTitle: title,
+          blogDescription: description,
+          blogDate: Timestamp.fromDate(new Date())
+        });
+        document.getElementById('title').value = '';
+        document.getElementById('description').value = '';
+        setBlogInDashboard();
+      } else {
+        console.error("No user data found for UID:", uid);
+        alert("User data not found.");
+      }
+    } catch (e) {
+      console.error("Error adding document:", e);
+      alert(`Error: ${e.message}`);
+    }
+  }
+  getUserProfileData(uid);
+}
+
+
+// Set Blog in Dashboard 
 async function setBlogInDashboard() {
-  const blogTitle = document.getElementById('blog-title');
-  const blogDescription = document.getElementById('blog-description');
-  let order_card = document.querySelector('.order_card')
-
+  const order_card = document.querySelector('.order_card');
 
   const querySnapshot = await getDocs(collection(db, "blogs"));
-  querySnapshot.forEach((doc) => {
-    const data = doc.data()
-    console.log(doc.id, " => ", doc.data());
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid;
+      order_card.innerHTML = '';
 
-    order_card.innerHTML += `<div class="card mb-4">
-                                <img src="../images/man.png" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="blog-title">${data.blogTitle}</h5>
-                                    <p class="card-text" id="blog-description">${data.blogDescription}</p>
-                                    <p class="card-text bottom "><strong id="user-name">ABDUL AHAD</strong> <small id="date" class="text-body-secondary">Aug 12, 2024</small></p>                                </div>
-                            </div>`
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        if (data.userUID === uid) {
+          
+          order_card.innerHTML += `<div class="card mb-4 position-relative" data-doc-id="${doc.id}">
+                                  <button type="button" id="del-card" class="btn-close position-absolute top-0 start-0 m-2" aria-label="Close">
+                                      <i class="fa-solid fa-xmark"></i>
+                                  </button>
+                              
+                                  <img src="../images/logo.png" class="card-img-top" alt="...">
+                              
+                                  <div class="card-body">
+                                      <h5 class="card-title">${data.blogTitle}</h5>
+                                      <p class="card-text">${data.blogDescription}</p>
+                                      <p class="card-text bottom">
+                                          <strong>${data.userName || 'User'}</strong>
+                                          <small class="text-body-secondary">${data.blogDate.toDate().toLocaleDateString()}</small>
+                                      </p>
+                                      
+                                      <!-- Update Button -->
+                                      <button type="button" class="btn btn-primary">Update</button>
+                                  </div>
+                              </div>`;
+        }
+      });
+    } else {
+      alert("Please sign in to view your blogs.");
+    }
   });
 }
+
+
+// Delete Blog 
+let order_card = document.querySelector('.order_card');
+
+order_card.addEventListener('click', function (e) {
+  if (e.target.classList.contains('btn-close') || e.target.closest('.btn-close')) {
+    const card = e.target.closest('.card');
+    if (card) {
+      const docId = card.getAttribute('data-doc-id');
+
+      if (docId) {
+        deleteDoc(doc(db, "blogs", docId))
+          .then(() =>
+          {
+            alert("Document successfully deleted!");
+            card.remove();
+          })
+          .catch((error) =>
+          {
+            console.error("Error removing document: ", error);
+          });
+      } else {
+        console.error("No document ID found on the card.");
+      }
+    }
+  }
+});

@@ -7,7 +7,7 @@
 
 body {
     width: 100vw;
-    height: 100%;
+    min-height: 100vh;
     overflow-x: hidden;
     font-family: "Poppins", sans-serif;
     font-style: normal;
@@ -28,7 +28,6 @@ a {
     }
 }
 
-
 .btn {
     padding: .5em 1em;
     font-size: 1.2em;
@@ -38,14 +37,32 @@ a {
     cursor: pointer;
     border-radius: 25px;
     background: #e0e0e0;
-    box-shadow: inset 10px 10px 8px #cacaca,
-        inset -10px -10px 8px #f6f6f6;
+    /* box-shadow: inset 10px 10px 8px #cacaca,
+        inset -10px -10px 8px #f6f6f6; */
 }
 
 .btn:active {
     transform: scale(.95);
 }
 
+/* =============== ScrollBar =============== */
+/* The entire scrollbar */
+::-webkit-scrollbar {
+    width: .7em; 
+    height: 10vw; 
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #05445E; 
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #00344b; 
+}
 
 /* =============== Navbar =============== */
 nav {
