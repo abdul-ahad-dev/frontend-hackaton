@@ -36,7 +36,7 @@ function getUserProfileData(uid) {
 }
 
 
-// Chech USER Login or not!
+// Check USER Login or not!
 onAuthStateChanged(auth, (user) => {
   if (!user) {
     window.location.href = 'loginAcc.html';

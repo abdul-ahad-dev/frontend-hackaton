@@ -37,8 +37,6 @@ a {
     cursor: pointer;
     border-radius: 25px;
     background: #e0e0e0;
-    /* box-shadow: inset 10px 10px 8px #cacaca,
-        inset -10px -10px 8px #f6f6f6; */
 }
 
 .btn:active {
